@@ -1,0 +1,20 @@
+Step,Rows Before,Rows After,Rows Removed,Values Recovered,Reason / Details
+Standardize Column Names,441063,441063,0,0,Stripped whitespace from column headers
+Recover start station ID from unique station name,441063,441063,0,0,Filled only when the normalized station name maps to exactly one known station ID.
+Recover end station ID from unique station name,441063,441063,0,225,Filled only when the normalized station name maps to exactly one known station ID.
+Recover start station name from unique station ID,441063,441063,0,0,Filled only when the station ID maps to exactly one known station name.
+Recover end station name from unique station ID,441063,441063,0,0,Filled only when the station ID maps to exactly one known station name.
+Recover start station fields from unique exact coordinates,441063,441063,0,0,Used exact latitude/longitude only where the coordinate pair maps to one station.
+Recover end station fields from unique exact coordinates,441063,441063,0,0,Used exact latitude/longitude only where the coordinate pair maps to one station.
+Recover start station fields from unique rounded coordinates,441063,441063,0,0,Used two-decimal coordinates only when both values were rounded and the rounded cell maps to exactly one station; ambiguous cells were left missing.
+Recover end station fields from unique rounded coordinates,441063,441063,0,132,Used two-decimal coordinates only when both values were rounded and the rounded cell maps to exactly one station; ambiguous cells were left missing.
+Recover start coordinates from unique station ID,441063,441063,0,0,Filled missing coordinate values only when the station ID has one consistent coordinate pair.
+Recover end coordinates from unique station ID,441063,441063,0,136,Filled missing coordinate values only when the station ID has one consistent coordinate pair.
+Parse timestamps and remove invalid timestamps,441063,441063,0,0,Timestamp parsing uses errors='coerce'; rows with missing/unparseable timestamps are excluded.
+Check/drop exact duplicate rows,441063,441063,0,0,Exact duplicate rows detected at this step: 0; drop_duplicates removes only exact repeats.
+Check/deduplicate ride_id,441063,441063,0,0,Repeated ride_id rows detected at this step: 0; first occurrence retained only when repeated IDs exist.
+Validate coordinate ranges,441063,441063,0,0,Removed only rows with non-missing coordinates outside global latitude/longitude bounds; missing coordinates are retained for non-spatial analyses.
+Exclude non-positive and >24-hour durations,441063,440931,132,0,"Excluded 0 non-positive, 132 >24-hour, and 0 missing-duration rows. The >24-hour cutoff is used for the primary analysis to reduce extreme-duration influence; the comparison above documents its impact."
+Drop rows with unresolved missing values after station recovery,440931,439922,1009,0,"After safe station-name/ID/coordinate matching, rows with any remaining missing value are excluded. No station identity is guessed for ambiguous coordinate matches."
+Feature engineering,439922,439922,0,0,"Created hour, weekday, month, weekend, and cyclical start-hour features; no rows removed."
+Standardize Categories,439922,439922,0,0,Trimmed white spaces from rideable_type and member_casual
